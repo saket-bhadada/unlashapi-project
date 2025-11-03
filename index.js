@@ -5,4 +5,10 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
-app.listen()
+const port = 3000;
+
+app.get("")
+
+app.listen(port, ()=>{
+    console.log(`running on port ${port}`);
+})
