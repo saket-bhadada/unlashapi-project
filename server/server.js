@@ -12,4 +12,4 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(express.json());
 
-// app.get('/home',homePage);
+app.get('/home',homePage);
