@@ -1,11 +1,17 @@
 import React,{useState} from "react";
-
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 function Registration(){
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const [confirmPassword,setConfirmPassword] = useState('');
-
+    const handleSuccess = (credentialResponse) => {
+        // The credential is a JWT string
+        const decoded = jwtDecode(credentialResponse.credential);
+        console.log("User Profile:", decoded);
+        // Send this token to your backend!
+    };
     async function handleSubmit(e){
         e.preventDefault();
         try{
@@ -51,7 +57,11 @@ function Registration(){
                     required/>
                     <button type="submit">Register</button>
                 </form>
-                
+                <GoogleLogin
+                onSuccess={handleSuccess}
+                onError={() => console.log('Login Failed')}
+                useOneTap // Optional: enables the 'One Tap' prompt in the corner
+                />
             </div>
         );
     }
