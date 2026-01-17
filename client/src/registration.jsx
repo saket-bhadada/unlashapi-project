@@ -1,11 +1,13 @@
 import React,{useState} from "react";
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 function Registration(){
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const [confirmPassword,setConfirmPassword] = useState('');
+    const navigate = useNavigate();
     const handleSuccess = (credentialResponse) => {
         // The credential is a JWT string
         const decoded = jwtDecode(credentialResponse.credential);
@@ -31,7 +33,7 @@ function Registration(){
         }catch(error){
             console.log(error);
         };
-        const navigate = useNavigate();
+    }
         
         return(
             <div>
@@ -50,7 +52,7 @@ function Registration(){
                     onChange={(e)=>{setPassword(e.target.value)}}
                     required/>
                     <input
-                    type="confirm password"
+                    type="password"
                     placeholder="Confirm your password"
                     value={confirmPassword}
                     onChange={(e)=>{setConfirmPassword(e.target.value)}}
@@ -65,4 +67,6 @@ function Registration(){
             </div>
         );
     }
-};
+;
+
+export default Registration;
