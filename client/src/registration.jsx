@@ -7,6 +7,7 @@ function Registration(){
     const [password,setPassword] = useState('');
 
     const [confirmPassword,setConfirmPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const handleSuccess = (credentialResponse) => {
         // The credential is a JWT string
@@ -16,6 +17,7 @@ function Registration(){
     };
     async function handleSubmit(e){
         e.preventDefault();
+        setIsLoading(true);
         try{
             const response = await fetch('/api/register',{
                 method:'POST',
@@ -32,7 +34,10 @@ function Registration(){
             }
         }catch(error){
             console.log(error);
-        };
+            alert('Something went wrong. Please ensure the server is running.');
+        } finally {
+            setIsLoading(false);
+        }
     }
         
         return(
@@ -57,7 +62,9 @@ function Registration(){
                     value={confirmPassword}
                     onChange={(e)=>{setConfirmPassword(e.target.value)}}
                     required/>
-                    <button type="submit">Register</button>
+                    <button type="submit" disabled={isLoading}>
+                        {isLoading ? 'Registering...' : 'Register'}
+                    </button>
                 </form>
                 <GoogleLogin
                 onSuccess={handleSuccess}

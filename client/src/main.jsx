@@ -5,13 +5,17 @@ import './index.css'
 import App from './App.jsx'
 import Registration from './registration.jsx'
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/register" element={<Registration />} />
-      </Routes>
-    </BrowserRouter>
+    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/register" element={<Registration />} />
+        </Routes>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   </StrictMode>,
 )
