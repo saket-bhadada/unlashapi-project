@@ -5,6 +5,5 @@ export const imageapi = async()=>{
     if(!response.ok){
         throw new Error('something went wrong');
     }
-    const data = await response.json();
-    return data;
+    return response.json();
 }
