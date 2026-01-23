@@ -28,6 +28,9 @@ function App() {
         <Link to="/register">
           <button style={{ marginTop: '10px' }}>Go to Registration</button>
         </Link>
+        <Link to="/search">
+          <button style={{ marginTop: '10px', marginLeft: '10px' }}>Go to Search</button>
+        </Link>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
