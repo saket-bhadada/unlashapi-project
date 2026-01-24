@@ -32,7 +32,25 @@ function Search() {
         }
     }
 
-    // Removed handleout as it was buggy and unused in the UI
+    async function topsearch(){
+        try{
+            const response = await fetch('/api/topsearches',{
+                method:'GET',
+                headers:{
+                    'Content-Type':'application/json'
+                }
+            });
+            const data = await response.json();
+            console.log("Top searches:",data);
+            // if(response.ok){
+
+            // }
+        }
+        catch(error){
+            console.error(error);
+            alert('Something went wrong. Please ensure the server is running.');
+        }
+    }
     
     return (
         <div>
