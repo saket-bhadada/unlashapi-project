@@ -65,8 +65,8 @@ function Search() {
                 {images.map((img, index) => (
                     <img 
                         key={img.id || index} 
-                        src={img.url} 
-                        alt={img.title || 'image'} 
+                        src={img.urls?.small || img.urls?.regular} 
+                        alt={img.alt_description || img.description || 'image'} 
                         style={{ width: '100%', borderRadius: '8px' }} 
                     />
                 ))}
