@@ -1,6 +1,14 @@
 import passport from "passport";
 import express from "express";
+import pg, { Client } from "pg";
 
+const db = new Client({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+})
 const auth = express.Router();
 
 auth.get('/login',
