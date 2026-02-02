@@ -59,5 +59,26 @@ passport.use(
 
 passport.use(
     "local",
-    new Strategy(async function )
+    new Strategy(async function verify(userid,password,cb){
+        try{
+            const result = await db.query('SELECT * FROM users WHERE userid = $1',[userid]);
+            const user = result.rows[0];
+            if(result.rows.length > 0){
+                const user = result.rows[0];
+                bcrypt.compare(password,user.password,(err,result)=>{
+                    if(err){
+                        return cb(err);
+                    }
+                    if(result === true){
+                        return cb(null,user);
+                    }else{
+                        return cb(null,false);
+                    }
+                })
+            }
+        }catch(error){
+            console.log(error);
+            return cb(error);
+        }
+    })
 )
