@@ -66,11 +66,11 @@ function Registration(){
                         {isLoading ? 'Registering...' : 'Register'}
                     </button>
                 </form>
-                <GoogleLogin
+                {/* <GoogleLogin
                 onSuccess={handleSuccess}
                 onError={() => console.log('Login Failed')}
                 useOneTap // Optional: enables the 'One Tap' prompt in the corner
-                />
+                /> */}
             </div>
         );
     }
