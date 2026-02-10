@@ -16,4 +16,20 @@ function App(){
         socket.emit('message',{username:{username},content:message});
         setmessage("");
     }
+    
+    return(
+        <div>
+            <div className="chat-window">
+                {chat.map((msg, i) => (
+                <p key={i}><strong>{msg.username}:</strong> {msg.content}</p>
+                ))}
+            </div>
+            <input 
+                value={message} 
+                onChange={(e) => setMessage(e.target.value)} 
+                placeholder="Type a message..."
+            />
+            <button onClick={sendMessage}>Send</button>
+        </div>
+    )
 }
