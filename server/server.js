@@ -15,16 +15,18 @@ import search from './search.js';
 const app = express();
 const port = 3000;
 
-app.use(cors({
+app.use(
+  cors({
     origin: 'http://localhost:5173',
     credentials: true,
-}));
+  })
+);
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.use('/home',homePage);
-app.use('/api/search',search);
+app.use('/home', homePage);
+app.use('/api/search', search);
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+  console.log(`Server is running on port ${port}`);
 });
