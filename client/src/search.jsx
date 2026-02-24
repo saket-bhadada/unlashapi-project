@@ -8,6 +8,8 @@ function Search() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [error, setError] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 5;
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -20,6 +22,7 @@ function Search() {
     setIsLoading(true);
     setError('');
     setImages([]);
+    setCurrentPage(1);
 
     try {
       const response = await fetch('/api/search', {
@@ -119,15 +122,48 @@ function Search() {
               Found {images.length} images
             </p>
             <div className="gallery">
-              {images.map((img, index) => (
-                <div key={img.id || index} className="gallery-item">
-                  <img
-                    src={img.urls?.small || img.urls?.regular}
-                    alt={img.alt_description || img.description || 'image'}
-                  />
-                </div>
-              ))}
+              {(() => {
+                const totalPages = Math.ceil(images.length / imagesPerPage);
+                const startIndex = (currentPage - 1) * imagesPerPage;
+                const endIndex = startIndex + imagesPerPage;
+                const currentImages = images.slice(startIndex, endIndex);
+
+                return currentImages.map((img, index) => (
+                  <div key={img.id || index} className="gallery-item">
+                    <img
+                      src={img.urls?.small || img.urls?.regular}
+                      alt={img.alt_description || img.description || 'image'}
+                    />
+                  </div>
+                ));
+              })()}
             </div>
+
+            {/* Pagination Controls */}
+            {(() => {
+              const totalPages = Math.ceil(images.length / imagesPerPage);
+              return (
+                <div className="pagination">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="pagination-btn"
+                  >
+                    ← Previous
+                  </button>
+                  <span className="pagination-info">
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="pagination-btn"
+                  >
+                    Next →
+                  </button>
+                </div>
+              );
+            })()}
           </div>
         )}
 
